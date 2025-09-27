@@ -13,7 +13,6 @@ A modern, glassmorphic UI component for tracking multiple mess subscriptions wit
 
 ### 🔹 Visual Insights
 - **Usage Streak**: Track consecutive days of thali usage
-- **Heatmap Visualization**: Visual representation of usage patterns
 - **Progress Indicators**: Clear progress bars and statistics
 - **Alert System**: Visual indicators for high usage rates (>1 thali/day)
 
