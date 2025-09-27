@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mess Tracker - Thali Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00ff88">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Mess Tracker">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileColor" content="#0a0a0a">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-192x192.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16x16.png">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <i class="fas fa-utensils"></i>
+                    Mess Tracker
+                </h1>
+                <p class="app-subtitle">Track your thali consumption with precision</p>
+            </div>
+            <div class="header-actions">
+                <button class="add-mess-btn" id="addMessBtn">
+                    <i class="fas fa-plus"></i>
+                    Add Mess
+                </button>
+                <button class="pwa-install-btn" id="pwaInstallBtn" style="display: none;">
+                    <i class="fas fa-download"></i>
+                    Install App
+                </button>
+                <button class="debug-btn" id="resetDataBtn" title="Reset All Data">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Overview -->
+        <section class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="totalThalis">0</h3>
+                    <p>Total Thalis</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="usedThalis">0</h3>
+                    <p>Used Thalis</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="remainingThalis">0</h3>
+                    <p>Remaining</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="averageUsage">0</h3>
+                    <p>Avg/Day</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mess Cards Grid -->
+        <main class="mess-grid" id="messGrid">
+            <!-- Mess cards will be dynamically inserted here -->
+        </main>
+
+        <!-- Add/Edit Mess Modal -->
+        <div class="modal-overlay" id="messModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modalTitle">Add New Mess</h2>
+                    <button class="close-btn" id="closeModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form class="mess-form" id="messForm">
+                    <div class="form-group">
+                        <label for="messName">Mess Name</label>
+                        <input type="text" id="messName" name="messName" placeholder="e.g., Shree Mess, Annapurna" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="totalThalis">Total Thalis</label>
+                            <input type="number" id="totalThalis" name="totalThalis" placeholder="30" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="totalCost">Total Cost (₹)</label>
+                            <input type="number" id="totalCost" name="totalCost" placeholder="3000" min="1" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="startDate">Start Date</label>
+                            <input type="date" id="startDate" name="startDate" required>
+                            <small class="date-format-hint">Date will be displayed as DD/MM/YYYY</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="validityDays">Validity (Days)</label>
+                            <input type="number" id="validityDays" name="validityDays" placeholder="40" min="1" required>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
+                        <button type="submit" class="btn-primary" onclick="window.submitMessForm(); return false;">Save Mess</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Daily Usage Modal -->
+        <div class="modal-overlay" id="usageModal">
+            <div class="modal-content usage-modal">
+                <div class="modal-header">
+                    <h2>Daily Usage - <span id="usageMessName"></span></h2>
+                    <button class="close-btn" id="closeUsageModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="usage-content">
+                    <div class="usage-stats">
+                        <div class="usage-stat">
+                            <span class="stat-label">Today's Usage</span>
+                            <div class="thali-counter" id="thaliCounter">
+                                <button class="counter-btn minus" id="minusBtn" onclick="messTracker.adjustTodayThali(-1)">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span class="counter-value" id="todayThaliCount">0</span>
+                                <button class="counter-btn plus" id="plusBtn" onclick="messTracker.adjustTodayThali(1)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="thali-toggle" id="thaliToggle" style="display: none;">
+                                <input type="checkbox" id="todayThali">
+                                <label for="todayThali">
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-text">Mark Thali Used</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="usage-streak">
+                            <h3>Usage Streak</h3>
+                            <div class="streak-display" id="streakDisplay">
+                                <span class="streak-number">0</span>
+                                <span class="streak-label">days</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="previous-day-tracking">
+                        <h3>Previous Day Tracking</h3>
+                        <p class="tracking-description">Forgot to mark a thali? Select a previous day to update:</p>
+                        <div class="date-picker-container">
+                            <label for="previousDate">Select Date:</label>
+                            <input type="date" id="previousDate" max="">
+                            <div class="previous-day-counter" id="previousDayCounter" style="display: none;">
+                                <label>Thalis for selected date:</label>
+                                <div class="counter-controls">
+                                    <button class="counter-btn minus" onclick="messTracker.adjustPreviousDayThali(-1)">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <span class="counter-value" id="previousDayCount">0</span>
+                                    <button class="counter-btn plus" onclick="messTracker.adjustPreviousDayThali(1)">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button class="mark-previous-btn" id="markPreviousBtn" disabled>
+                                <i class="fas fa-calendar-check"></i>
+                                Mark for Selected Date
+                            </button>
+                        </div>
+                        <div class="previous-day-status" id="previousDayStatus">
+                            <!-- Status will be shown here -->
+                        </div>
+                    </div>
+                    <div class="usage-summary">
+                        <h3>Usage Summary</h3>
+                        <div class="summary-stats">
+                            <div class="summary-item">
+                                <span class="summary-label">Days Active</span>
+                                <span class="summary-value" id="daysActive">0</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Usage Rate</span>
+                                <span class="summary-value" id="usageRate">0.0/day</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Efficiency</span>
+                                <span class="summary-value" id="efficiency">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i class="toast-icon"></i>
+            <span class="toast-message"></span>
+        </div>
+    </div>
+
+    <!-- Offline Indicator -->
+    <div class="offline-indicator" id="offlineIndicator">
+        <i class="fas fa-wifi"></i>
+        <span>You're offline - Data will sync when connected</span>
+    </div>
+
+    <!-- PWA Install Banner -->
+    <div class="pwa-banner" id="pwaBanner" style="display: none;">
+        <div class="pwa-banner-content">
+            <div class="pwa-banner-icon">
+                <i class="fas fa-mobile-alt"></i>
+            </div>
+            <div class="pwa-banner-text">
+                <h3>Install Mess Tracker</h3>
+                <p>Get quick access and offline functionality</p>
+            </div>
+            <div class="pwa-banner-actions">
+                <button class="pwa-banner-install" id="pwaBannerInstall">Install</button>
+                <button class="pwa-banner-dismiss" id="pwaBannerDismiss">×</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+    <script src="pwa.js"></script>
+</body>
+</html>
