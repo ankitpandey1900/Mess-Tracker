@@ -7,8 +7,11 @@ const DYNAMIC_CACHE = 'mess-tracker-dynamic-v1.0.0';
 const STATIC_FILES = [
   '/',
   '/index.html',
-  '/styles.css',
-  '/script.js',
+  '/css/styles.css',
+  '/js/state.js',
+  '/js/utils.js',
+  '/js/ui.js',
+  '/js/main.js',
   '/manifest.json',
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png'

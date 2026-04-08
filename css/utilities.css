@@ -1,0 +1,191 @@
+/* Alert Styles */
+.alert {
+    background: rgba(255, 107, 53, 0.1);
+    border: 1px solid var(--saffron);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    color: var(--saffron);
+    font-size: 0.8rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Offline Indicator */
+.offline-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--saffron);
+    color: var(--kaluu-black);
+    padding: var(--spacing-sm);
+    text-align: center;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    z-index: 1000;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+}
+
+.offline-indicator.show {
+    transform: translateY(0);
+}
+
+.offline-indicator i {
+    margin-right: var(--spacing-xs);
+}
+
+/* PWA Banner */
+.pwa-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid var(--glass-border);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.pwa-banner.show {
+    transform: translateY(0);
+}
+
+.pwa-banner-content {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md);
+    gap: var(--spacing-md);
+}
+
+.pwa-banner-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--neon-green), var(--electric-blue));
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--kaluu-black);
+    font-size: 1.5rem;
+}
+
+.pwa-banner-text {
+    flex: 1;
+}
+
+.pwa-banner-text h3 {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin-bottom: 0.25rem;
+}
+
+.pwa-banner-text p {
+    color: #a0a0a0;
+    font-size: 0.9rem;
+}
+
+.pwa-banner-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.pwa-banner-install {
+    background: var(--neon-green);
+    color: var(--kaluu-black);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pwa-banner-install:hover {
+    background: var(--electric-blue);
+    transform: translateY(-1px);
+}
+
+.pwa-banner-dismiss {
+    background: transparent;
+    color: #a0a0a0;
+    border: 1px solid var(--glass-border);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pwa-banner-dismiss:hover {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+
+/* Haptic Feedback Styles */
+.haptic-light {
+    animation: hapticLight 0.1s ease;
+}
+
+.haptic-medium {
+    animation: hapticMedium 0.15s ease;
+}
+
+.haptic-heavy {
+    animation: hapticHeavy 0.2s ease;
+}
+
+@keyframes hapticLight {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.98); }
+}
+
+@keyframes hapticMedium {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+}
+
+@keyframes hapticHeavy {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.9); }
+}
+
+
+/* PWA Responsive */
+@media (max-width: 768px) {
+    .pwa-banner-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .pwa-banner-actions {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .pwa-banner-install {
+        flex: 1;
+    }
+    
+    #notificationModal .modal-content {
+        width: 95%;
+        padding: var(--spacing-lg);
+    }
+}
