@@ -75,4 +75,4 @@ A modern, glassmorphic UI component for tracking multiple mess subscriptions wit
 
 
 
-**Built with ❤️ for developers who value structure, simplicity, and visual clarity.**
+
