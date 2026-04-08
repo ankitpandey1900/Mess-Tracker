@@ -11,46 +11,6 @@ A modern, glassmorphic UI component for tracking multiple mess subscriptions wit
 - **Date Management**: Start date and validity period tracking
 - **Daily Toggle**: Mark thali usage with simple toggle controls
 
-### 🔹 Visual Insights
-- **Usage Streak**: Track consecutive days of thali usage
-- **Progress Indicators**: Clear progress bars and statistics
-- **Alert System**: Visual indicators for high usage rates (>1 thali/day)
-
-### 🔹 Design Philosophy
-- **Glassmorphism**: Soft blur effects with subtle borders
-- **Kaluu-core Aesthetic**: Black base with neon green and saffron accents
-- **Hacker Minimalism**: Clean, focused interface without clutter
-- **Responsive Design**: Works seamlessly across all devices
-
-## 🎨 Design System
-
-### Color Palette
-- **Base**: Kaluu-core black (#0a0a0a) with dark gray (#1a1a1a)
-- **Accents**: Neon green (#00ff88) and saffron (#ff6b35)
-- **Glass**: Semi-transparent overlays with blur effects
-- **Typography**: JetBrains Mono for code, Inter for UI
-
-### Components
-- **Mess Cards**: Glassmorphic cards with usage statistics
-- **Modals**: Smooth overlay dialogs for data entry
-- **Heatmaps**: Visual usage patterns with color coding
-- **Progress Bars**: Animated progress indicators
-
-## 🚀 Getting Started
-
-### Installation
-1. Clone or download the project files
-2. Open `index.html` in your browser
-3. Start tracking your mess subscriptions!
-
-### File Structure
-```
-mess-tracker/
-├── index.html          # Main HTML structure
-├── styles.css          # Glassmorphic CSS styles
-├── script.js           # JavaScript functionality
-└── README.md          # Documentation
-```
 
 ## 📱 Usage
 
@@ -80,22 +40,6 @@ mess-tracker/
 - Delete plans when no longer needed
 - All data persists in browser localStorage
 
-## 🔧 Technical Features
-
-### Data Persistence
-- Browser localStorage for data persistence
-- No external dependencies required
-- Offline-first design
-
-### Responsive Design
-- Mobile-first approach
-- Grid layouts that adapt to screen size
-- Touch-friendly controls
-
-### Performance
-- Lightweight vanilla JavaScript
-- CSS animations with hardware acceleration
-- Efficient DOM manipulation
 
 ## 🎯 Key Components
 
@@ -127,58 +71,8 @@ mess-tracker/
 - Visual indicators for over-consumption
 - Streak tracking for motivation
 
-## 🎨 Customization
 
-### Color Themes
-Modify CSS custom properties in `styles.css`:
-```css
-:root {
-  --neon-green: #00ff88;
-  --saffron: #ff6b35;
-  --kaluu-black: #0a0a0a;
-}
-```
 
-### Layout Adjustments
-- Grid columns: Modify `.mess-grid` CSS
-- Card sizing: Adjust `.mess-card` dimensions
-- Responsive breakpoints: Update media queries
 
-## 🔮 Future Enhancements
-
-### Planned Features
-- Calendar integration
-- Export/import functionality
-- Advanced analytics
-- Multi-user support
-- Mobile app version
-
-### Integration Possibilities
-- Google Calendar sync
-- Notion database export
-- Slack integration
-- API for external services
-
-## 🛠️ Development
-
-### Browser Support
-- Modern browsers with CSS Grid support
-- ES6+ JavaScript features
-- CSS Custom Properties (CSS Variables)
-
-### Performance Considerations
-- Minimal DOM queries
-- Efficient event handling
-- CSS animations with `transform` and `opacity`
-
-## 📄 License
-
-This project is open source and available under the MIT License.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
-
----
 
 **Built with ❤️ for developers who value structure, simplicity, and visual clarity.**
